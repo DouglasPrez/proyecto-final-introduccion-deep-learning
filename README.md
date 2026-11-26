@@ -15,14 +15,12 @@ En este proyecto aplico tres arquitecturas de redes neuronales a problemas de vi
 
 ## MLP de League of Legends
 
-Usé 9,879 partidas clasificatorias de nivel alto. A partir de las estadísticas al minuto diez, calculé las diferencias de oro, experiencia, bajas, visión y objetivos entre los equipos. Probé dos redes y elegí la de una capa oculta de 32 neuronas por su menor pérdida en validación. [Dataset de Bobbyscience en Kaggle](https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min)
+Usé 9,879 partidas clasificatorias de nivel alto. A partir de las estadísticas al minuto diez, calculé las diferencias de oro, experiencia, bajas, visión y objetivos entre los equipos. Probé dos MLP y elegí el de una hidden layer de 32 unidades por su menor validation loss. [Dataset de Bobbyscience en Kaggle](https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min)
 
-| Modelo | Exactitud en prueba | F1 macro | Pérdida en prueba |
+| Modelo | Accuracy en test | Macro F1-score | Test loss |
 | --- | ---: | ---: | ---: |
 | MLP de una capa | 71.26 % | 0.7125 | 0.5350 |
-| Regresión logística | 71.93 % | 0.7193 | 0.5288 |
-
-En este conjunto de prueba, la regresión logística obtuvo 0.67 puntos porcentuales más de exactitud. Me quedo con esa comparación porque muestra cuánto aporta el MLP frente a una opción más sencilla. Para saber si el resultado se mantiene, probaría con partidas de otros parches y rangos.
+| Logistic regression | 71.93 % | 0.7193 | 0.5288 |
 
 ## CNN de Minecraft
 
@@ -44,7 +42,7 @@ Usé cinco snapshots por partida para pronosticar la ventaja de net worth de Rad
 | Persistencia | 4,143.39 | 5,113.96 |
 | Tendencia lineal | 3,963.64 | 5,078.22 |
 
-Elegí la GRU por su MAE en validation. En test redujo el MAE un 10.83 % frente a persistencia. La mejora se concentró en partidas con cambios de al menos 2,000 unidades de net worth. Persistencia obtuvo menor MAE cuando el cambio real fue más pequeño.
+Elegí la GRU por su MAE en validation.
 
 ## Cómo ejecutar los notebooks
 
@@ -59,3 +57,9 @@ Para ejecutarlos en Jupyter, instala las dependencias con Python 3.11 o posterio
 ```bash
 python -m pip install jupyter torch torchvision numpy pandas matplotlib pillow scikit-learn
 ```
+
+## Conclusiones
+
+- En League of Legends, logistic regression obtuvo 0.67 puntos porcentuales más de accuracy que el MLP. Probaría con partidas de otros parches y rangos para ver si esa diferencia se mantiene.
+- En Minecraft, el data augmentation mejoró el macro F1-score en validation. Probaría la CNN con capturas de otros mundos y paquetes de texturas para medir qué tan bien generaliza.
+- En Dota 2, la GRU redujo el MAE de test un 10.83 % frente a persistencia. La mejora se concentró en partidas con cambios de al menos 2,000 unidades de net worth.
